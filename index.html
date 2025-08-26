@@ -43,7 +43,7 @@
                 <li><a href="#" data-page="mathematics" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Mathematics</a></li>
                 <li><a href="#" data-page="science-olympiad" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Science Olympiad</a></li>
                 <li><a href="#" data-page="competitions" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Competitions</a></li>
-                <li><a href="#" data-page="contact" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Contact</a></li>
+                <li><a href="#" data-page="register" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Register</a></li>
             </ul>
         </nav>
 
@@ -63,6 +63,9 @@
                 <div class="text-center p-4">
                     <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Welcome! ✨</h2>
                     <p class="text-[#8b949e] leading-relaxed">I offer personalized tutoring to help students master core concepts in Mathematics and Science. Whether you're struggling with a specific topic or aiming for a top grade, I'm here to help you succeed.</p>
+                    <a href="#" data-page="register" class="mt-8 inline-block px-8 py-4 text-white font-semibold rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Get Started
+                    </a>
                 </div>
             `,
             'mathematics': `
@@ -163,24 +166,58 @@
                     </div>
                 </div>
             `,
-            'contact': `
+            'register': `
                 <div class="p-4">
-                    <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Get in Touch ✉️</h2>
-                    <p class="text-[#8b949e] leading-relaxed">I'm excited to help you on your academic journey! Please fill out the form below to inquire about availability and pricing.</p>
+                    <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Register for Tutoring 📝</h2>
+                    <p class="text-[#8b949e] leading-relaxed">Please fill out this form to register your interest. We'll get back to you with pricing and availability based on your needs.</p>
+                    <div class="mt-4 p-4 rounded-lg bg-[#21262d] border border-[#30363d]">
+                        <h4 class="font-bold text-[#c9d1d9] mb-2">Cost Information</h4>
+                        <p class="text-sm text-[#8b949e]">Pricing is dependent on the subject and level of tutoring required. A general cost is $XX per hour, which we will confirm after reviewing your application.</p>
+                        <h4 class="font-bold text-[#c9d1d9] mt-4 mb-2">Ways for Payment</h4>
+                        <ul class="list-disc list-inside text-sm text-[#8b949e]">
+                            <li>Venmo</li>
+                            <li>PayPal</li>
+                            <li>Zelle</li>
+                        </ul>
+                    </div>
                     <form class="mt-4 space-y-4">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-[#c9d1d9]">Name</label>
-                            <input type="text" id="name" name="name" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                            <label for="studentName" class="block text-sm font-medium text-[#c9d1d9]">Student's Name</label>
+                            <input type="text" id="studentName" name="studentName" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-[#c9d1d9]">Email</label>
+                            <label for="parentName" class="block text-sm font-medium text-[#c9d1d9]">Parent's Name</label>
+                            <input type="text" id="parentName" name="parentName" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-[#c9d1d9]">Email Address</label>
                             <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
                         </div>
                         <div>
-                            <label for="message" class="block text-sm font-medium text-[#c9d1d9]">Message</label>
-                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]"></textarea>
+                            <label for="phone" class="block text-sm font-medium text-[#c9d1d9]">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
                         </div>
-                        <button type="submit" class="w-full px-4 py-2 text-white bg-[#58a6ff] rounded-md hover:bg-[#4894e6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#58a6ff] transition-colors duration-200">Send Message</button>
+                        <div>
+                            <label for="class" class="block text-sm font-medium text-[#c9d1d9]">What class do you want?</label>
+                            <select id="class" name="class" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                                <option value="" disabled selected>Select a class</option>
+                                <option value="mathematics">Mathematics</option>
+                                <option value="science-olympiad">Science Olympiad</option>
+                                <option value="competitions">Competitions</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="inPerson" name="inPerson" class="h-4 w-4 text-[#58a6ff] bg-[#21262d] border-[#30363d] rounded focus:ring-[#58a6ff]">
+                            <label for="inPerson" class="ml-2 block text-sm text-[#c9d1d9]">I want in-person tutoring</label>
+                        </div>
+                        <p class="text-xs text-[#8b949e] italic">
+                            *In-person tutoring is only available in the 92127 San Diego Zip Code.
+                        </p>
+                        <div>
+                            <label for="extraInfo" class="block text-sm font-medium text-[#c9d1d9]">Extra information I should know</label>
+                            <textarea id="extraInfo" name="extraInfo" rows="4" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-4 py-2 text-white bg-[#58a6ff] rounded-md hover:bg-[#4894e6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#58a6ff] transition-colors duration-200">Submit Registration</button>
                     </form>
                 </div>
             `
