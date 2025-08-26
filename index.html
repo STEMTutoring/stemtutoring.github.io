@@ -231,12 +231,23 @@
                         <p class="text-xs text-[#8b949e] italic">
                             *In-person tutoring is only available in the 92127 San Diego Zip Code.
                         </p>
-                        <div id="address-container" class="hidden">
-                            <label for="address" class="block text-sm font-medium text-[#c9d1d9]">Your Address*</label>
-                            <input type="text" id="address" name="address" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
-                            <p class="text-xs text-[#8b949e] italic mt-1">
-                                A real website would use an API to verify this is a real address in the 92127 zip code.
-                            </p>
+                        <div id="address-container" class="hidden space-y-4">
+                            <div>
+                                <label for="streetAddress" class="block text-sm font-medium text-[#c9d1d9]">Street Address*</label>
+                                <input type="text" id="streetAddress" name="streetAddress" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                            </div>
+                            <div>
+                                <label for="city" class="block text-sm font-medium text-[#c9d1d9]">City*</label>
+                                <input type="text" id="city" name="city" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                            </div>
+                            <div>
+                                <label for="state" class="block text-sm font-medium text-[#c9d1d9]">State*</label>
+                                <input type="text" id="state" name="state" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                            </div>
+                            <div>
+                                <label for="zipCode" class="block text-sm font-medium text-[#c9d1d9]">Zip Code*</label>
+                                <input type="text" id="zipCode" name="zipCode" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                            </div>
                         </div>
                         <div>
                             <label for="paymentMethod" class="block text-sm font-medium text-[#c9d1d9]">Payment Method*</label>
@@ -260,7 +271,7 @@
                 </div>
             `
         };
-        
+
         // Define options for the dynamic class details dropdown
         const classOptions = {
             'mathematics': [
@@ -287,7 +298,10 @@
             const classDetailsSelect = document.getElementById('class-details');
             const inPersonCheckbox = document.getElementById('inPerson');
             const addressContainer = document.getElementById('address-container');
-            const addressInput = document.getElementById('address');
+            const streetAddressInput = document.getElementById('streetAddress');
+            const cityInput = document.getElementById('city');
+            const stateInput = document.getElementById('state');
+            const zipCodeInput = document.getElementById('zipCode');
             const paymentMethodSelect = document.getElementById('paymentMethod');
             const paymentHandleContainer = document.getElementById('payment-handle-container');
             const paymentHandleLabel = document.getElementById('payment-handle-label');
@@ -315,15 +329,21 @@
                 });
             }
 
-            // Show/hide address field for in-person tutoring
+            // Show/hide and set required status for address fields
             if (inPersonCheckbox) {
                 inPersonCheckbox.addEventListener('change', () => {
                     if (inPersonCheckbox.checked) {
                         addressContainer.classList.remove('hidden');
-                        addressInput.required = true;
+                        streetAddressInput.required = true;
+                        cityInput.required = true;
+                        stateInput.required = true;
+                        zipCodeInput.required = true;
                     } else {
                         addressContainer.classList.add('hidden');
-                        addressInput.required = false;
+                        streetAddressInput.required = false;
+                        cityInput.required = false;
+                        stateInput.required = false;
+                        zipCodeInput.required = false;
                     }
                 });
             }
