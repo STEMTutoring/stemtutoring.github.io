@@ -56,7 +56,38 @@
         </main>
     </div>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // Global variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const authToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth;
+
+        async function initFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (authToken) {
+                    await signInWithCustomToken(auth, authToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                console.log("Firebase initialized and user authenticated.");
+            } catch (error) {
+                console.error("Error initializing Firebase or authenticating:", error);
+            }
+        }
+
+        // Initialize Firebase on page load
+        initFirebase();
+
         const contentDiv = document.getElementById('content');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -66,13 +97,11 @@
                 <div class="text-center p-4">
                     <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Welcome! ✨</h2>
                     <p class="text-[#8b949e] leading-relaxed">I offer personalized tutoring to help students master core concepts in Mathematics and Science. Whether you're struggling with a specific topic or aiming for a top grade, I'm here to help you succeed.</p>
-                    <a href="#" data-page="details" class="nav-link mt-8 inline-block px-8 py-4 text-white font-semibold rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    <a href="#details-section" class="mt-8 inline-block px-8 py-4 text-white font-semibold rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         Get Started/Learn More
                     </a>
                 </div>
-            `,
-            'details': `
-                <div class="p-4">
+                <div id="details-section" class="p-4 mt-8">
                     <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Details of My Tutoring Program 📚</h2>
                     <p class="text-[#8b949e] leading-relaxed mb-4">
                         My tutoring program is designed to provide a tailored learning experience for each student. I believe in fostering a deep understanding of concepts rather than just memorization. Here's what you can expect:
@@ -338,9 +367,7 @@
                     </form>
                     <div id="submission-message" class="hidden mt-6 p-4 rounded-lg bg-green-900 border border-green-700 text-green-200">
                         <p class="font-bold">Form Submitted Successfully!</p>
-                        <p class="text-sm mt-2">The following details are ready to be sent. Click the button below to copy the information to your clipboard.</p>
-                        <button id="copy-button" class="mt-4 px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">Copy to Clipboard</button>
-                        <pre id="submitted-data" class="mt-4 p-4 rounded bg-green-800 text-white overflow-x-auto"></pre>
+                        <p class="text-sm mt-2">Your information has been successfully submitted to the database.</p>
                     </div>
                 </div>
             `
@@ -370,11 +397,6 @@
             const registrationForm = document.getElementById('registrationForm');
             if (registrationForm) {
                 registrationForm.addEventListener('submit', handleFormSubmit);
-            }
-            
-            const copyButton = document.getElementById('copy-button');
-            if (copyButton) {
-                copyButton.addEventListener('click', handleCopy);
             }
 
             const classSelect = document.getElementById('class');
@@ -490,11 +512,8 @@
             }
         };
 
-        let lastSubmissionData = '';
-
-        const handleFormSubmit = (e) => {
+        const handleFormSubmit = async (e) => {
             e.preventDefault();
-
             const form = e.target;
             const data = new FormData(form);
             const submissionData = {};
@@ -523,60 +542,31 @@
                     }
                 }
             }
-            
-            // Format the details for display
-            let formattedDetails = `To: emailaaravsrg@gmail.com\n\n`;
-            formattedDetails += `Subject: New Tutoring Registration from ${submissionData.studentName}\n\n`;
-            formattedDetails += `Registration Details:\n`;
-            
-            // Re-order and format the output nicely
-            const order = ['studentName', 'studentAge', 'parentName', 'studentEmail', 'parentEmail', 'studentPhone', 'parentPhone', 'class', 'class-details', 'tutoringLocation'];
-            order.forEach(key => {
-                if (submissionData[key]) {
-                    const label = form.querySelector(`label[for="${key}"]`)?.textContent.replace('*', '') || key;
-                    if (key === 'class-details') {
-                        formattedDetails += `  ${label}: ${submissionData[key].join(', ')}\n`;
-                    } else {
-                        formattedDetails += `  ${label}: ${submissionData[key]}\n`;
-                    }
+
+            // Save data to Firestore
+            if (db) {
+                try {
+                    const userId = auth.currentUser?.uid;
+                    const submissionsCollection = collection(db, `artifacts/${appId}/users/${userId}/submissions`);
+                    const docRef = await addDoc(submissionsCollection, {
+                        ...submissionData,
+                        submittedAt: new Date(),
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                    document.getElementById('submission-message').classList.remove('hidden');
+                    form.reset();
+                    document.getElementById('class-details-container').classList.add('hidden');
+                    document.getElementById('address-container').classList.add('hidden');
+                    document.getElementById('online-container').classList.add('hidden');
+                    document.getElementById('other-app-container').classList.add('hidden');
+                    document.getElementById('payment-handle-container').classList.add('hidden');
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                    // You could add a user-facing error message here if needed
                 }
-            });
-            
-            // Add address or online details
-            if (submissionData.tutoringLocation === 'In-Person') {
-                formattedDetails += `  Street Address: ${submissionData.streetAddress}\n`;
-                formattedDetails += `  City: ${submissionData.city}\n`;
-                formattedDetails += `  State: ${submissionData.state}\n`;
-                formattedDetails += `  Zip Code: ${submissionData.zipCode}\n`;
-            } else if (submissionData.tutoringLocation === 'Online') {
-                formattedDetails += `  Application: ${submissionData.application}\n`;
+            } else {
+                console.error("Firestore database not initialized.");
             }
-
-            // Add payment and extra info
-            formattedDetails += `  Payment Method: ${submissionData.paymentMethod}\n`;
-            formattedDetails += `  Payment Handle: ${submissionData['payment-handle']}\n`;
-            if (submissionData.extraInfo) {
-                formattedDetails += `  Extra Information: ${submissionData.extraInfo}\n`;
-            }
-
-            // Store the formatted data for copying
-            lastSubmissionData = formattedDetails;
-
-            // Display the formatted details
-            const submittedDataDiv = document.getElementById('submitted-data');
-            const submissionMessageDiv = document.getElementById('submission-message');
-            submittedDataDiv.textContent = formattedDetails;
-            submissionMessageDiv.classList.remove('hidden');
-        };
-
-        const handleCopy = () => {
-            const dummy = document.createElement('textarea');
-            document.body.appendChild(dummy);
-            dummy.value = lastSubmissionData;
-            dummy.select();
-            document.execCommand('copy');
-            document.body.removeChild(dummy);
-            alert("Copied to clipboard!");
         };
 
         // Event listeners for navigation links
