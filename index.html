@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Tutoring Business</title>
+    <!-- Use Tailwind CSS for easy and responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Use a nice, readable font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f9;
+        }
+        /* Style for the button, adding a subtle shadow and hover effect */
+        .btn-primary {
+            @apply px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="p-6">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-gray-900">Your Tutoring Business</a>
+            <!-- You can add navigation links here if you want more pages -->
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <!-- Text Content -->
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-gray-900 mb-4">
+                        Master Math, Science, and Competitions
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Personalized one-on-one tutoring to help you excel in core subjects and achieve your competitive goals.
+                    </p>
+                    <a href="#contact" class="btn-primary">
+                        Get Started
+                    </a>
+                </div>
+                <!-- Image Section -->
+                <div class="md:w-1/2 flex justify-center">
+                    <!-- Placeholder image URL, replace with your own image -->
+                    <img src="https://placehold.co/600x400/1e40af/ffffff?text=Tutoring+Image" alt="Tutoring session illustration" class="rounded-3xl shadow-2xl w-full max-w-lg transition-transform duration-300 transform hover:scale-105">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-16 md:py-24">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+                About Me
+            </h2>
+            <div class="mx-auto max-w-4xl text-lg text-gray-600 space-y-4">
+                <p>
+                    Hi there! I'm [Your Name], a passionate tutor with a strong background in mathematics and physics. As someone who has participated in and excelled at competitions like the AMC and Physics Bowl, I understand what it takes to succeed at a high level.
+                </p>
+                <p>
+                    My goal is to help you not just understand complex topics but to build the problem-solving skills and confidence needed to tackle challenging exams and competitions. I believe that with the right guidance, anyone can achieve their academic goals.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-12">
+                My Tutoring Services
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Service Card 1: Math -->
+                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 transform hover:scale-105">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                        Mathematics
+                    </h3>
+                    <p class="text-gray-600">
+                        From foundational Algebra to advanced Calculus, I'll help you build a solid understanding and master problem-solving techniques.
+                    </p>
+                </div>
+                <!-- Service Card 2: Physics -->
+                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 transform hover:scale-105">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                        Physics
+                    </h3>
+                    <p class="text-gray-600">
+                        Dive deep into mechanics, electricity, and magnetism with clear explanations and real-world applications.
+                    </p>
+                </div>
+                <!-- Service Card 3: Competitions -->
+                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 transform hover:scale-105">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                        Competition Prep
+                    </h3>
+                    <p class="text-gray-600">
+                        Specialized coaching for tests like the AMC 10/12, AIME, and Physics Bowl to help you qualify for the next level.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24">
+        <div class="container mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+                Ready to Get Started?
+            </h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Fill out the form below to schedule a free consultation or to ask any questions you may have.
+            </p>
+            <form action="#" method="POST" class="mx-auto max-w-xl bg-white p-8 rounded-2xl shadow-lg">
+                <div class="mb-6">
+                    <label for="name" class="block text-left font-semibold text-gray-700 mb-2">Name</label>
+                    <input type="text" id="name" name="name" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your Name" required>
+                </div>
+                <div class="mb-6">
+                    <label for="email" class="block text-left font-semibold text-gray-700 mb-2">Email</label>
+                    <input type="email" id="email" name="email" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="your.email@example.com" required>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-left font-semibold text-gray-700 mb-2">Message</label>
+                    <textarea id="message" name="message" rows="5" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tell me a bit about your goals and what you need help with." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary w-full">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center text-sm">
+            &copy; 2025 Your Tutoring Business. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
