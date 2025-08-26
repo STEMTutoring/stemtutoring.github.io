@@ -219,7 +219,10 @@
                         </div>
                         <div id="class-details-container" class="hidden">
                             <label for="class-details" class="block text-sm font-medium text-[#c9d1d9]">What exactly in this class would you like to learn?*</label>
-                            <textarea id="class-details" name="class-details" rows="4" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]" required></textarea>
+                            <select id="class-details" name="class-details" multiple size="5" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]" required>
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                            <p class="text-xs text-[#8b949e] italic mt-1">Hold down the Ctrl (Windows) or Cmd (Mac) key to select multiple options.</p>
                         </div>
                         <div class="flex items-center">
                             <input type="checkbox" id="inPerson" name="inPerson" class="h-4 w-4 text-[#58a6ff] bg-[#21262d] border-[#30363d] rounded focus:ring-[#58a6ff]">
@@ -230,8 +233,23 @@
                         </p>
                         <div id="address-container" class="hidden">
                             <label for="address" class="block text-sm font-medium text-[#c9d1d9]">Your Address*</label>
-                            <!-- Note: A real-world application would use a Google Maps API for address verification. This is a placeholder input. -->
                             <input type="text" id="address" name="address" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                            <p class="text-xs text-[#8b949e] italic mt-1">
+                                A real website would use an API to verify this is a real address in the 92127 zip code.
+                            </p>
+                        </div>
+                        <div>
+                            <label for="paymentMethod" class="block text-sm font-medium text-[#c9d1d9]">Payment Method*</label>
+                            <select id="paymentMethod" name="paymentMethod" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]" required>
+                                <option value="" disabled selected>Select a method</option>
+                                <option value="venmo">Venmo</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="zelle">Zelle</option>
+                            </select>
+                        </div>
+                        <div id="payment-handle-container" class="hidden">
+                            <label id="payment-handle-label" for="payment-handle" class="block text-sm font-medium text-[#c9d1d9]"></label>
+                            <input type="text" id="payment-handle" name="payment-handle" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
                         </div>
                         <div>
                             <label for="extraInfo" class="block text-sm font-medium text-[#c9d1d9]">Extra information I should know</label>
@@ -241,6 +259,19 @@
                     </form>
                 </div>
             `
+        };
+        
+        // Define options for the dynamic class details dropdown
+        const classOptions = {
+            'mathematics': [
+                "Elementary School Math", "Algebra I & II", "Geometry", "Trigonometry", "Pre-Calculus", "Integrated Math I, II & III", "AP Calculus A/B"
+            ],
+            'science-olympiad': [
+                "Map Reading", "Estimania", "Large Number Estimation", "Solar System", "Metric Mastery", "Engineering CAD", "Astronomy"
+            ],
+            'competitions': [
+                "AMC 8/10", "Math Kangaroo", "MOEMS", "MathCounts"
+            ]
         };
 
         // Function to render page content
@@ -253,23 +284,38 @@
         const attachFormListeners = () => {
             const classSelect = document.getElementById('class');
             const classDetailsContainer = document.getElementById('class-details-container');
-            const classDetailsInput = document.getElementById('class-details');
+            const classDetailsSelect = document.getElementById('class-details');
             const inPersonCheckbox = document.getElementById('inPerson');
             const addressContainer = document.getElementById('address-container');
             const addressInput = document.getElementById('address');
+            const paymentMethodSelect = document.getElementById('paymentMethod');
+            const paymentHandleContainer = document.getElementById('payment-handle-container');
+            const paymentHandleLabel = document.getElementById('payment-handle-label');
+            const paymentHandleInput = document.getElementById('payment-handle');
 
+
+            // Dynamic class details based on class selection
             if (classSelect) {
                 classSelect.addEventListener('change', () => {
-                    if (classSelect.value) {
+                    const selectedClass = classSelect.value;
+                    classDetailsSelect.innerHTML = ''; // Clear previous options
+                    if (selectedClass) {
                         classDetailsContainer.classList.remove('hidden');
-                        classDetailsInput.required = true;
+                        classDetailsSelect.required = true;
+                        classOptions[selectedClass].forEach(option => {
+                            const opt = document.createElement('option');
+                            opt.value = option;
+                            opt.textContent = option;
+                            classDetailsSelect.appendChild(opt);
+                        });
                     } else {
                         classDetailsContainer.classList.add('hidden');
-                        classDetailsInput.required = false;
+                        classDetailsSelect.required = false;
                     }
                 });
             }
 
+            // Show/hide address field for in-person tutoring
             if (inPersonCheckbox) {
                 inPersonCheckbox.addEventListener('change', () => {
                     if (inPersonCheckbox.checked) {
@@ -278,6 +324,40 @@
                     } else {
                         addressContainer.classList.add('hidden');
                         addressInput.required = false;
+                    }
+                });
+            }
+            
+            // Dynamic payment handle based on payment method selection
+            if (paymentMethodSelect) {
+                paymentMethodSelect.addEventListener('change', () => {
+                    const selectedMethod = paymentMethodSelect.value;
+                    if (selectedMethod) {
+                        paymentHandleContainer.classList.remove('hidden');
+                        paymentHandleInput.required = true;
+                        switch (selectedMethod) {
+                            case 'venmo':
+                                paymentHandleLabel.textContent = 'Venmo Handle*';
+                                paymentHandleInput.placeholder = 'e.g., @YourHandle';
+                                break;
+                            case 'paypal':
+                                paymentHandleLabel.textContent = 'PayPal Username*';
+                                paymentHandleInput.placeholder = 'e.g., your.username';
+                                break;
+                            case 'zelle':
+                                paymentHandleLabel.textContent = 'Zelle Phone Number/Email*';
+                                paymentHandleInput.placeholder = 'e.g., 555-555-5555 or your.email@example.com';
+                                break;
+                            default:
+                                paymentHandleLabel.textContent = '';
+                                paymentHandleInput.placeholder = '';
+                                paymentHandleContainer.classList.add('hidden');
+                                paymentHandleInput.required = false;
+                                break;
+                        }
+                    } else {
+                        paymentHandleContainer.classList.add('hidden');
+                        paymentHandleInput.required = false;
                     }
                 });
             }
