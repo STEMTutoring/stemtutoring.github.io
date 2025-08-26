@@ -3,147 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Tutoring Business</title>
-    <!-- Use Tailwind CSS for easy and responsive styling -->
+    <title>STEM Tutoring</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Use a nice, readable font */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f7f9;
-        }
-        /* Style for the button, adding a subtle shadow and hover effect */
-        .btn-primary {
-            @apply px-8 py-4 bg-blue-600 text-white font-semibold rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
         }
     </style>
 </head>
-<body class="antialiased text-gray-800">
+<body class="flex flex-col items-center justify-center p-6">
+    <div class="w-full max-w-4xl p-8 bg-[#161b22] rounded-2xl shadow-lg">
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl sm:text-5xl font-bold text-[#58a6ff] mb-2">STEM Tutoring</h1>
+            <p class="text-lg sm:text-xl text-[#8b949e]">Personalized tutoring in Mathematics and Science.</p>
+        </header>
 
-    <!-- Header & Navigation -->
-    <header class="p-6">
-        <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-gray-900">Your Tutoring Business</a>
-            <!-- You can add navigation links here if you want more pages -->
+        <!-- Navigation Bar -->
+        <nav class="mb-8">
+            <ul class="flex flex-col sm:flex-row justify-center items-center gap-4 text-lg font-medium">
+                <li><a href="#" data-page="home" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Home</a></li>
+                <li><a href="#" data-page="mathematics" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Mathematics</a></li>
+                <li><a href="#" data-page="science-olympiad" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Science Olympiad</a></li>
+                <li><a href="#" data-page="competitions" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Competitions</a></li>
+                <li><a href="#" data-page="contact" class="nav-link text-[#c9d1d9] hover:text-[#58a6ff] transition-colors duration-200">Contact</a></li>
+            </ul>
         </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-4 md:px-8">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <!-- Text Content -->
-                <div class="md:w-1/2 text-center md:text-left">
-                    <h1 class="text-3xl md:text-5xl font-extrabold leading-tight text-gray-900 mb-4">
-                        Master Math, Science, and Competitions
-                    </h1>
-                    <p class="text-lg text-gray-600 mb-8">
-                        Personalized one-on-one tutoring to help you excel in core subjects and achieve your competitive goals.
-                    </p>
-                    <a href="#contact" class="btn-primary">
-                        Get Started
-                    </a>
-                </div>
-                <!-- Image Section -->
-                <div class="md:w-1/2 flex justify-center">
-                    <!-- Placeholder image URL, replace with your own image -->
-                    <img src="https://placehold.co/600x400/1e40af/ffffff?text=Tutoring+Image" alt="Tutoring session illustration" class="rounded-3xl shadow-2xl w-full max-w-lg transition-transform duration-300 transform hover:scale-105">
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- Dynamic Content Area -->
+        <main id="content" class="min-h-[400px]">
+            <!-- Content will be injected here -->
+        </main>
+    </div>
 
-    <!-- About Me Section -->
-    <section id="about" class="py-16 md:py-24">
-        <div class="container mx-auto px-4 md:px-8 text-center">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
-                About Me
-            </h2>
-            <div class="mx-auto max-w-4xl text-lg text-gray-600 space-y-4">
-                <p>
-                    Hi there! I'm [Your Name], a passionate tutor with a strong background in mathematics and physics. As someone who has participated in and excelled at competitions like the AMC and Physics Bowl, I understand what it takes to succeed at a high level.
-                </p>
-                <p>
-                    My goal is to help you not just understand complex topics but to build the problem-solving skills and confidence needed to tackle challenging exams and competitions. I believe that with the right guidance, anyone can achieve their academic goals.
-                </p>
-            </div>
-        </div>
-    </section>
+    <script>
+        const contentDiv = document.getElementById('content');
+        const navLinks = document.querySelectorAll('.nav-link');
 
-    <!-- Services Section -->
-    <section id="services" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-4 md:px-8 text-center">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-12">
-                My Tutoring Services
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <!-- Service Card 1: Math -->
-                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 transform hover:scale-105">
-                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                        Mathematics
-                    </h3>
-                    <p class="text-gray-600">
-                        From foundational Algebra to advanced Calculus, I'll help you build a solid understanding and master problem-solving techniques.
-                    </p>
+        // Page content objects
+        const pages = {
+            'home': `
+                <div class="text-center p-4">
+                    <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Welcome!</h2>
+                    <p class="text-[#8b949e] leading-relaxed">I offer personalized tutoring to help students master core concepts in Mathematics and Science. Whether you're struggling with a specific topic or aiming for a top grade, I'm here to help you succeed.</p>
                 </div>
-                <!-- Service Card 2: Physics -->
-                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 transform hover:scale-105">
-                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                        Physics
-                    </h3>
-                    <p class="text-gray-600">
-                        Dive deep into mechanics, electricity, and magnetism with clear explanations and real-world applications.
-                    </p>
+            `,
+            'mathematics': `
+                <div class="p-4">
+                    <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Mathematics Tutoring</h2>
+                    <p class="text-[#8b949e] leading-relaxed">I provide comprehensive tutoring for all levels of mathematics, from pre-algebra to calculus. My approach focuses on building a strong foundation and developing problem-solving skills to tackle complex problems with confidence.</p>
+                    <ul class="list-disc list-inside mt-4 text-[#8b949e]">
+                        <li>Algebra I & II</li>
+                        <li>Geometry</li>
+                        <li>Trigonometry</li>
+                        <li>Pre-Calculus</li>
+                        <li>Calculus I, II & III</li>
+                    </ul>
                 </div>
-                <!-- Service Card 3: Competitions -->
-                <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100 transition-transform duration-300 transform hover:scale-105">
-                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                        Competition Prep
-                    </h3>
-                    <p class="text-gray-600">
-                        Specialized coaching for tests like the AMC 10/12, AIME, and Physics Bowl to help you qualify for the next level.
-                    </p>
+            `,
+            'science-olympiad': `
+                <div class="p-4">
+                    <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Science Olympiad</h2>
+                    <p class="text-[#8b949e] leading-relaxed">I have extensive experience in Science Olympiad competitions. I offer coaching and practice sessions to help you prepare for events in physics, chemistry, and biology. Let's work together to build your knowledge and competition skills.</p>
                 </div>
-            </div>
-        </div>
-    </section>
+            `,
+            'competitions': `
+                <div class="p-4">
+                    <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Competition Preparation</h2>
+                    <p class="text-[#8b949e] leading-relaxed">Beyond general tutoring, I specialize in preparing students for academic competitions. From the AMC to AP exams, I will help you develop the strategies and deep understanding needed to perform at your best.</p>
+                    <ul class="list-disc list-inside mt-4 text-[#8b949e]">
+                        <li>AMC 8/10/12</li>
+                        <li>USACO</li>
+                        <li>AP Exams (Physics, Chemistry, Calculus)</li>
+                    </ul>
+                </div>
+            `,
+            'contact': `
+                <div class="p-4">
+                    <h2 class="text-3xl font-bold mb-4 text-[#58a6ff]">Get in Touch</h2>
+                    <p class="text-[#8b949e] leading-relaxed">I'm excited to help you on your academic journey! Please fill out the form below to inquire about availability and pricing.</p>
+                    <form class="mt-4 space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-[#c9d1d9]">Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-[#c9d1d9]">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-[#c9d1d9]">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 bg-[#21262d] border border-[#30363d] rounded-md text-white focus:outline-none focus:ring-[#58a6ff] focus:border-[#58a6ff]"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-4 py-2 text-white bg-[#58a6ff] rounded-md hover:bg-[#4894e6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#58a6ff] transition-colors duration-200">Send Message</button>
+                    </form>
+                </div>
+            `
+        };
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 md:py-24">
-        <div class="container mx-auto px-4 md:px-8 text-center">
-            <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
-                Ready to Get Started?
-            </h2>
-            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Fill out the form below to schedule a free consultation or to ask any questions you may have.
-            </p>
-            <form action="#" method="POST" class="mx-auto max-w-xl bg-white p-8 rounded-2xl shadow-lg">
-                <div class="mb-6">
-                    <label for="name" class="block text-left font-semibold text-gray-700 mb-2">Name</label>
-                    <input type="text" id="name" name="name" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your Name" required>
-                </div>
-                <div class="mb-6">
-                    <label for="email" class="block text-left font-semibold text-gray-700 mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="your.email@example.com" required>
-                </div>
-                <div class="mb-6">
-                    <label for="message" class="block text-left font-semibold text-gray-700 mb-2">Message</label>
-                    <textarea id="message" name="message" rows="5" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tell me a bit about your goals and what you need help with." required></textarea>
-                </div>
-                <button type="submit" class="btn-primary w-full">
-                    Send Message
-                </button>
-            </form>
-        </div>
-    </section>
+        // Function to render page content
+        const renderPage = (pageName) => {
+            contentDiv.innerHTML = pages[pageName];
+        };
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-6">
-        <div class="container mx-auto text-center text-sm">
-            &copy; 2025 Your Tutoring Business. All rights reserved.
-        </div>
-    </footer>
+        // Event listeners for navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageName = e.target.dataset.page;
+                renderPage(pageName);
+            });
+        });
 
+        // Initial page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPage('home');
+        });
+    </script>
 </body>
 </html>
